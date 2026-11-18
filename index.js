@@ -60,7 +60,7 @@ function render(){
         deleteBtn.className = 'delete'
 
         li.append(checkbox, span, deleteBtn)
-        list.append(li)
+        list.append(li);
         
         console.log(task);
 
