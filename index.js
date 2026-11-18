@@ -1,5 +1,3 @@
-// CRUD - Create, Read, Update, Delete
-
 const form = document.getElementById('form')
 const input = document.getElementById('input')
 const list = document.getElementById('list')
@@ -24,13 +22,17 @@ form.addEventListener('submit', event => {
 
 list.addEventListener('click', event  => {
     const li = event.target.closest('li')
-    if (li) return;
+    if (!li) return;
 
     const id = Number(li.dataset.id)
 
-    if(event.target.className.contains('toggle')){
+    if(event.target.classList.contains('toggle')){
         const task = tasks.find(task => task.id === id)
-        task.done = true
+        task.done = !task.done
+    }
+
+    if(event.target.classList.contains('delete')){
+        tasks = tasks.filter(task => task.id !== id)
     }
 
     render()
@@ -53,10 +55,16 @@ function render(){
         checkbox.checked = task.done
         checkbox.className = 'toggle'
 
-        li.append(checkbox, span)
+        const deleteBtn = document.createElement('button')
+        deleteBtn.textContent = '✕'
+        deleteBtn.className = 'delete'
+
+        li.append(checkbox, span, deleteBtn)
         list.append(li)
         
         console.log(task);
+
+        
         
     })
 }
